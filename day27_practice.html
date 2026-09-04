@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Day 27 Practice — Writing Task 2: Agree / Disagree Introductions</title>
+<style>
+  :root {
+    --navy: #1A2A4A;
+    --blue: #0275D8;
+    --purple: #8E44AD;
+    --amber: #D97706;
+    --green: #5CB85C;
+    --red: #D9534F;
+    --bg: #F4F6F9;
+    --card: #FFFFFF;
+    --border: #E1E6ED;
+    --text: #24303F;
+    --muted: #64748B;
+  }
+  * { box-sizing: border-box; }
+  body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    margin: 0;
+    padding: 0 0 60px 0;
+    line-height: 1.55;
+  }
+  header {
+    background: linear-gradient(135deg, var(--navy), #2b3f6b);
+    color: white;
+    padding: 28px 20px 22px;
+    text-align: center;
+  }
+  header h1 { margin: 0 0 6px; font-size: 1.5rem; }
+  header p { margin: 0; opacity: 0.85; font-size: 0.95rem; }
+
+  .container { max-width: 880px; margin: 0 auto; padding: 0 18px; }
+
+  .timebar {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: 18px;
+    font-size: 0.82rem;
+  }
+  .timebar span {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 5px 12px;
+    color: var(--muted);
+  }
+  .timebar span strong { color: var(--navy); }
+
+  .section {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    margin-top: 24px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(20,30,60,0.05);
+  }
+  .section-head {
+    padding: 14px 20px;
+    color: white;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+  .section-head-left { display: flex; align-items: center; gap: 10px; }
+  .section-head .tag {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    background: rgba(255,255,255,0.22);
+    padding: 3px 9px;
+    border-radius: 20px;
+    font-weight: 700;
+  }
+  .section-head .time-tag {
+    font-size: 0.72rem;
+    background: rgba(255,255,255,0.14);
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-weight: 600;
+  }
+  .section-head h2 { margin: 0; font-size: 1.08rem; }
+  .basic .section-head { background: var(--blue); }
+  .intermediate .section-head { background: var(--purple); }
+  .advanced .section-head { background: var(--amber); }
+  .application .section-head { background: var(--navy); }
+
+  .section-body { padding: 18px 20px 22px; }
+  .instructions { font-style: italic; color: var(--muted); margin-bottom: 16px; font-size: 0.92rem; }
+
+  /* Question type framing */
+  .q-item { margin-bottom: 18px; }
+  .q-item .q-num { font-weight: 700; color: var(--navy); margin-right: 6px; }
+  .q-type {
+    display: inline-block;
+    font-size: 0.66rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-weight: 700;
+    color: white;
+    background: var(--muted);
+    padding: 2px 8px;
+    border-radius: 10px;
+    margin-left: 8px;
+    vertical-align: middle;
+  }
+  .q-type.mcq { background: var(--blue); }
+  .q-type.tf { background: var(--red); }
+  .q-type.match { background: var(--purple); }
+  .q-type.fix { background: #B45309; }
+  .q-type.write { background: var(--green); }
+  .q-type.check { background: var(--amber); }
+
+  .choice-group { display: flex; flex-direction: column; gap: 6px; margin-top: 8px; }
+  .choice-group label {
+    font-weight: 400;
+    cursor: pointer;
+    background: #F7F9FC;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 8px 12px;
+    display: flex;
+    align-items: center;
+  }
+  .choice-group label:hover { border-color: var(--blue); }
+  .choice-group input { margin-right: 8px; }
+
+  select {
+    padding: 7px 10px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-size: 0.9rem;
+    font-family: inherit;
+    background: white;
+  }
+
+  textarea, input[type=text] {
+    width: 100%;
+    border: 1px solid var(--border);
+    border-radius: 7px;
+    padding: 10px 12px;
+    font-family: inherit;
+    font-size: 0.95rem;
+    resize: vertical;
+    background: #FCFCFD;
+  }
+  textarea:focus, input:focus, select:focus { outline: 2px solid var(--blue); outline-offset: 1px; background: white; }
+
+  .task-block {
+    background: #F7F9FC;
+    border-left: 4px solid var(--purple);
+    border-radius: 4px;
+    padding: 10px 14px;
+    margin-bottom: 14px;
+    font-size: 0.92rem;
+  }
+  .task-block.prompt { border-left-color: var(--navy); }
+
+  .translation-item { margin: 0 0 14px 0; }
+  .translation-item:last-child { margin-bottom: 0; }
+  .translation-prompt { margin: 0 0 6px; }
+  .translation-prompt strong { color: var(--navy); }
+
+  .checklist { margin-top: 14px; font-size: 0.9rem; }
+  .checklist label { display: flex; align-items: flex-start; gap: 8px; margin-bottom: 8px; cursor: pointer; }
+  .checklist input { margin-top: 3px; }
+
+  .word-count { font-size: 0.78rem; color: var(--muted); text-align: right; margin-top: 4px; }
+  .inline-fix { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 8px; }
+  .inline-fix input[type=text] { flex: 1; min-width: 220px; }
+
+  /* Submission panel */
+  .submit-panel {
+    background: var(--navy);
+    color: white;
+    border-radius: 10px;
+    margin-top: 30px;
+    padding: 24px 22px;
+  }
+  .submit-panel h2 { margin: 0 0 6px; font-size: 1.2rem; }
+  .submit-panel p { margin: 0 0 16px; opacity: 0.85; font-size: 0.92rem; }
+  .btn-row { display: flex; gap: 12px; flex-wrap: wrap; }
+  .btn {
+    border: none;
+    padding: 12px 18px;
+    border-radius: 8px;
+    font-size: 0.92rem;
+    font-weight: 700;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: transform 0.1s ease, opacity 0.2s ease;
+  }
+  .btn:active { transform: scale(0.97); }
+  .btn-primary { background: var(--amber); color: white; }
+  .btn-secondary { background: rgba(255,255,255,0.14); color: white; border: 1px solid rgba(255,255,255,0.3); }
+  .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+  .status-msg {
+    margin-top: 14px;
+    font-size: 0.88rem;
+    padding: 10px 14px;
+    border-radius: 7px;
+    display: none;
+  }
+  .status-msg.show { display: block; }
+  .status-ok { background: rgba(92,184,92,0.18); border: 1px solid rgba(92,184,92,0.4); }
+  .status-warn { background: rgba(217,83,79,0.18); border: 1px solid rgba(217,83,79,0.4); }
+
+  .preview-box {
+    margin-top: 18px;
+    background: rgba(0,0,0,0.25);
+    border-radius: 8px;
+    padding: 14px;
+    max-height: 260px;
+    overflow-y: auto;
+    display: none;
+  }
+  .preview-box.show { display: block; }
+  .preview-box pre {
+    white-space: pre-wrap;
+    word-break: break-word;
+    margin: 0;
+    font-family: 'Consolas', monospace;
+    font-size: 0.8rem;
+    color: #E8EDF5;
+  }
+
+  footer {
+    text-align: center;
+    color: var(--muted);
+    font-size: 0.8rem;
+    margin-top: 34px;
+    padding: 0 20px;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Writing Task 2 — Agree / Disagree Introductions</h1>
+  <p>Week 27, Day 1 Practice · Analyzing prompts &amp; writing a clear 2-sentence introduction</p>
+</header>
+
+<div class="container">
+
+  <div class="timebar">
+    <span>🔵 Basic <strong>~12 min</strong></span>
+    <span>🟣 Intermediate <strong>~23 min</strong></span>
+    <span>🟠 Advanced <strong>~15 min</strong></span>
+    <span>🔷 Application <strong>~10 min</strong></span>
+  </div>
+
+  <!-- ============ BASIC ============ -->
+  <div class="section basic">
+    <div class="section-head"><div class="section-head-left"><span class="tag">Basic</span><h2>Reading the Prompt &amp; Choosing a Position</h2></div><span class="time-tag">~12 min</span></div>
+    <div class="section-body">
+      <p class="instructions">Five short questions, five different formats. These test whether you can correctly read a prompt before you ever start writing.</p>
+
+      <div class="task-block prompt">Fast food restaurants should be required to display calorie information on their menus. <strong>To what extent do you agree or disagree?</strong></div>
+
+      <!-- Q1: MCQ - question type -->
+      <div class="q-item">
+        <span class="q-num">1.</span>What type of Task 2 question is this?<span class="q-type mcq">Multiple Choice</span>
+        <div class="choice-group">
+          <label><input type="radio" name="b1" value="A"> A. Discuss both views and give your own opinion</label>
+          <label><input type="radio" name="b1" value="B"> B. Agree / Disagree</label>
+          <label><input type="radio" name="b1" value="C"> C. Advantages and disadvantages</label>
+        </div>
+      </div>
+
+      <!-- Q2: MCQ - identify the instruction -->
+      <div class="q-item">
+        <span class="q-num">2.</span>Which part of the prompt above is <strong>the Instruction</strong> (not the Topic Statement)?<span class="q-type mcq">Multiple Choice</span>
+        <div class="choice-group">
+          <label><input type="radio" name="b2" value="A"> A. "Fast food restaurants should be required to display calorie information on their menus."</label>
+          <label><input type="radio" name="b2" value="B"> B. "To what extent do you agree or disagree?"</label>
+        </div>
+      </div>
+
+      <!-- Q3: True/False + justification -->
+      <div class="q-item">
+        <span class="q-num">3.</span><em>"Some people think a four-day work week would make employees happier and more productive. Personally, I completely disagree with this claim."</em> — Is this a <strong>Partly Agree</strong> introduction?<span class="q-type tf">True / False</span>
+        <div class="choice-group">
+          <label><input type="radio" name="b3" value="True"> True — it accepts both sides</label>
+          <label><input type="radio" name="b3" value="False"> False — it commits to one full position</label>
+        </div>
+        <input type="text" id="b3-why" placeholder="In one sentence, explain why..." style="margin-top:8px;">
+      </div>
+
+      <!-- Q4: MCQ - best opinion phrase -->
+      <div class="q-item">
+        <span class="q-num">4.</span>Topic: <em>"Zoos should be banned because keeping wild animals in captivity is cruel."</em> You want to take a <strong>full agree</strong> position. Which Sentence 2 is best?<span class="q-type mcq">Multiple Choice</span>
+        <div class="choice-group">
+          <label><input type="radio" name="b4" value="A"> A. "In my opinion, both sides have some merit."</label>
+          <label><input type="radio" name="b4" value="B"> B. "I completely agree with this view."</label>
+          <label><input type="radio" name="b4" value="C"> C. "Some people think this is true."</label>
+        </div>
+      </div>
+
+      <!-- Q5: dropdown word form -->
+      <div class="q-item">
+        <span class="q-num">5.</span>Many experts hold the <select id="b5"><option value="">-- choose --</option><option>belief</option><option>believe</option></select> that reducing meat consumption benefits the environment.<span class="q-type mcq">Choose the Form</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ INTERMEDIATE ============ -->
+  <div class="section intermediate">
+    <div class="section-head"><div class="section-head-left"><span class="tag">Intermediate</span><h2>Fix, Translate, and Construct</h2></div><span class="time-tag">~23 min</span></div>
+    <div class="section-body">
+      <p class="instructions">Now you diagnose broken introductions, translate target phrasing, and build your own sentences.</p>
+
+      <!-- Q1: error correction -->
+      <div class="q-item">
+        <span class="q-num">1.</span>Find the mistake in this introduction, then rewrite it correctly.<span class="q-type fix">Error Correction</span>
+        <div class="task-block">"Some people say that online learning is just as effective as traditional classroom learning, while others disagree. Discuss both views and give your own opinion."</div>
+        <div class="inline-fix">
+          <input type="text" id="i1-error" placeholder="What is the error?">
+          <input type="text" id="i1-fix" placeholder="Your corrected introduction">
+        </div>
+      </div>
+
+      <!-- Q2: error correction -->
+      <div class="q-item">
+        <span class="q-num">2.</span>Find the mistake in this introduction, then rewrite it correctly.<span class="q-type fix">Error Correction</span>
+        <div class="task-block">"Retirement age is an important issue affecting many countries around the world today."</div>
+        <div class="inline-fix">
+          <input type="text" id="i2-error" placeholder="What is the error?">
+          <input type="text" id="i2-fix" placeholder="Your corrected introduction">
+        </div>
+      </div>
+
+      <!-- Q3: translation exercise -->
+      <div class="q-item">
+        <span class="q-num">3.</span>Translate each sentence into English, using the target phrase given in brackets.<span class="q-type write">Translation</span>
+        <div class="task-block">
+          <p class="translation-item"><strong>1.</strong> Nhiều người tin rằng con người nên giảm tiêu thụ thịt để bảo vệ môi trường. <em>(a widely held belief)</em><textarea id="i3-1" rows="2" placeholder="Your translation"></textarea></p>
+          <p class="translation-item"><strong>2.</strong> Một số người cho rằng độ tuổi nghỉ hưu nên được nâng lên vì tuổi thọ con người đang tăng. <em>(should be raised)</em><textarea id="i3-2" rows="2" placeholder="Your translation"></textarea></p>
+          <p class="translation-item"><strong>3.</strong> Tôi hoàn toàn không đồng ý với quan điểm này. <em>(I completely disagree)</em><textarea id="i3-3" rows="2" placeholder="Your translation"></textarea></p>
+          <p class="translation-item"><strong>4.</strong> Theo quan điểm của tôi, cả hai khía cạnh đều có giá trị riêng. <em>(both sides have merit)</em><textarea id="i3-4" rows="2" placeholder="Your translation"></textarea></p>
+        </div>
+      </div>
+
+      <!-- Q4: sentence construction -->
+      <div class="q-item">
+        <span class="q-num">4.</span>Given Sentence 1 below, write a matching <strong>Sentence 2</strong> using a <strong>Partly Agree</strong> position.<span class="q-type write">Sentence Writing</span>
+        <div class="task-block">"It is often suggested that students should be free to choose between online and classroom-based learning."</div>
+        <textarea id="i4" rows="2" placeholder="Write your Sentence 2 here..."></textarea>
+      </div>
+
+      <!-- Q5: sentence construction -->
+      <div class="q-item">
+        <span class="q-num">5.</span>Paraphrase the topic statement below into your own <strong>Sentence 1</strong>. You must use at least one <strong>word-form swap</strong> (e.g. a verb changed to a noun).<span class="q-type write">Sentence Writing</span>
+        <div class="task-block">Original: "Governments should increase taxes on fast food to reduce obesity rates."</div>
+        <textarea id="i5" rows="2" placeholder="Write your paraphrased Sentence 1 here..."></textarea>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ ADVANCED ============ -->
+  <div class="section advanced">
+    <div class="section-head"><div class="section-head-left"><span class="tag">Advanced</span><h2>Analyze &amp; Construct From Scratch</h2></div><span class="time-tag">~15 min</span></div>
+    <div class="section-body">
+      <p class="instructions">These questions test judgment, not just recall — read carefully before answering.</p>
+
+      <!-- Q1: type discrimination -->
+      <div class="q-item">
+        <span class="q-num">1.</span>Read this prompt carefully.<span class="q-type mcq">Multiple Choice + Justify</span>
+        <div class="task-block prompt">"Some people believe that studying abroad brings only benefits to a student's future, while others think the disadvantages outweigh the advantages. Discuss both views and give your own opinion."</div>
+        Does today's 2-sentence <strong>Agree/Disagree</strong> formula fit this prompt exactly as taught?
+        <div class="choice-group">
+          <label><input type="radio" name="a1" value="Yes"> A. Yes — it is an Agree/Disagree question</label>
+          <label><input type="radio" name="a1" value="No"> B. No — it is a different question type, so the introduction needs adjusting</label>
+        </div>
+        <input type="text" id="a1-why" placeholder="Explain your answer in one sentence..." style="margin-top:8px;">
+      </div>
+
+      <!-- Q2: multi-error diagnosis -->
+      <div class="q-item">
+        <span class="q-num">2.</span>This introduction has more than one problem. Check every box that applies, then rewrite it.<span class="q-type check">Multi-Select + Fix</span>
+        <div class="task-block">"Extending the retirement age is a topic many people have different opinions about because life expectancy has increased so much in modern society and governments need money and I agree."</div>
+        <div class="checklist">
+          <label><input type="checkbox" id="a2-c1"> It barely paraphrases the topic — the sentence structure copies the original too closely.</label>
+          <label><input type="checkbox" id="a2-c2"> The opinion ("I agree") is too weak and informal — it should use a reliable opinion phrase.</label>
+          <label><input type="checkbox" id="a2-c3"> Reasons are already being explained inside the introduction, instead of being saved for the body paragraphs.</label>
+          <label><input type="checkbox" id="a2-c4"> There is no problem — this introduction is ready to use.</label>
+        </div>
+        <textarea id="a2-fix" rows="2" placeholder="Write your corrected 2-sentence introduction here..." style="margin-top:10px;"></textarea>
+      </div>
+
+      <!-- Q3: full from-scratch write -->
+      <div class="q-item">
+        <span class="q-num">3.</span>Write a complete 2-sentence introduction for this brand-new prompt.<span class="q-type write">Full Introduction</span>
+        <div class="task-block prompt">"Public libraries have become unnecessary in the digital age, since almost all books and information can be found online. To what extent do you agree or disagree?"</div>
+        <textarea id="a3" rows="3" placeholder="Write your full introduction here..." oninput="updateWordCount('a3','a3-count')"></textarea>
+        <div class="word-count" id="a3-count">0 words</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ APPLICATION ============ -->
+  <div class="section application">
+    <div class="section-head"><div class="section-head-left"><span class="tag">Application</span><h2>Full Task: Choose a Position &amp; Write</h2></div><span class="time-tag">~10 min</span></div>
+    <div class="section-body">
+
+      <div class="task-block prompt">Some people think that the government should ban the use of single-use plastic bags in all shops. Others believe individuals should be free to choose. <strong>To what extent do you agree or disagree with banning single-use plastic bags?</strong></div>
+
+      <div class="q-item">
+        <span class="q-num">1.</span>First, choose your position.<span class="q-type mcq">Multiple Choice</span>
+        <div class="choice-group">
+          <label><input type="radio" name="app-pos" value="Full Agree"> A. Full Agree (ban them)</label>
+          <label><input type="radio" name="app-pos" value="Full Disagree"> B. Full Disagree (don't ban them)</label>
+          <label><input type="radio" name="app-pos" value="Partly Agree"> C. Partly Agree (a bit of both)</label>
+        </div>
+      </div>
+
+      <div class="q-item">
+        <span class="q-num">2.</span>Now write your full 2-sentence introduction.<span class="q-type write">Full Introduction</span>
+        <textarea id="app1" rows="4" placeholder="Write your full introduction here..." oninput="updateWordCount('app1','app1-count')"></textarea>
+        <div class="word-count" id="app1-count">0 words</div>
+      </div>
+
+      <div class="checklist">
+        <label><input type="checkbox"> Sentence 1 paraphrases the topic — no string of 3+ consecutive words copied from the prompt</label>
+        <label><input type="checkbox"> Sentence 2 contains a clear, reliable opinion phrase (agree / disagree / both)</label>
+        <label><input type="checkbox"> The introduction stays about MY opinion — it doesn't just report what "other people" think</label>
+        <label><input type="checkbox"> The introduction is about 2 sentences long, not a full paragraph</label>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ SUBMISSION ============ -->
+  <div class="submit-panel">
+    <h2>Send Your Answers to Your Teacher</h2>
+    <p>Click "Prepare Submission" to review everything below, then choose how to send it — by email, by copying the text, or by downloading it as a file to attach.</p>
+    <div class="btn-row">
+      <button class="btn btn-primary" onclick="prepareSubmission()">📝 Prepare Submission</button>
+      <button class="btn btn-secondary" id="emailBtn" onclick="sendByEmail()" disabled>✉️ Open in Email App</button>
+      <button class="btn btn-secondary" id="copyBtn" onclick="copyToClipboard()" disabled>📋 Copy to Clipboard</button>
+      <button class="btn btn-secondary" id="downloadBtn" onclick="downloadAsFile()" disabled>⬇️ Download as .txt</button>
+    </div>
+    <div class="status-msg" id="statusMsg"></div>
+    <div class="preview-box" id="previewBox"><pre id="previewText"></pre></div>
+  </div>
+
+  <footer>
+    Teacher's email: kien.nguyen2411@outlook.com — if the email button doesn't open your mail app, use Copy or Download instead and send it manually.
+  </footer>
+</div>
+
+<script>
+/* ---------- Word count ---------- */
+function updateWordCount(taId, countId) {
+  const text = document.getElementById(taId).value.trim();
+  const words = text.length ? text.split(/\s+/).length : 0;
+  document.getElementById(countId).textContent = words + ' word' + (words === 1 ? '' : 's');
+}
+
+/* ---------- Submission builder ---------- */
+function buildSubmissionText() {
+  function radioVal(name) {
+    const el = document.querySelector('input[name="' + name + '"]:checked');
+    return el ? el.value : '(not answered)';
+  }
+  function val(id) {
+    const el = document.getElementById(id);
+    const v = el.value.trim();
+    return v.length ? v : '(not answered)';
+  }
+  function boxVal(id) {
+    const el = document.getElementById(id);
+    return el && el.checked ? '✔ checked' : '☐ not checked';
+  }
+  function checkVal(idx) {
+    const boxes = document.querySelectorAll('.checklist input[type=checkbox]');
+    return boxes[idx] && boxes[idx].checked ? '✔ checked' : '☐ not checked';
+  }
+
+  let out = '';
+  out += 'IELTS WRITING TASK 2 — AGREE / DISAGREE INTRODUCTIONS (Week 27, Day 1 Practice)\n';
+  out += '========================================================\n';
+  out += '\n';
+
+  out += '--- BASIC: Reading the Prompt & Choosing a Position ---\n';
+  out += '1. (MCQ) Question type: ' + radioVal('b1') + '\n';
+  out += '2. (MCQ) Which part is the Instruction: ' + radioVal('b2') + '\n';
+  out += '3. (True/False) Is this Partly Agree: ' + radioVal('b3') + '  |  Reason: ' + val('b3-why') + '\n';
+  out += '4. (MCQ) Best opinion phrase: ' + radioVal('b4') + '\n';
+  out += '5. Word form chosen: ' + val('b5') + '\n\n';
+
+  out += '--- INTERMEDIATE: Fix, Translate, and Construct ---\n';
+  out += '1. Error found: ' + val('i1-error') + '\n   Corrected: ' + val('i1-fix') + '\n';
+  out += '2. Error found: ' + val('i2-error') + '\n   Corrected: ' + val('i2-fix') + '\n';
+  out += '3. Translation exercise:\n';
+  out += '   1. ' + val('i3-1') + '\n';
+  out += '   2. ' + val('i3-2') + '\n';
+  out += '   3. ' + val('i3-3') + '\n';
+  out += '   4. ' + val('i3-4') + '\n';
+  out += '4. Sentence 2 (Partly Agree): ' + val('i4') + '\n';
+  out += '5. Sentence 1 (paraphrase, word-form swap): ' + val('i5') + '\n\n';
+
+  out += '--- ADVANCED: Analyze & Construct From Scratch ---\n';
+  out += '1. Does the formula fit as-is: ' + radioVal('a1') + '  |  Reason: ' + val('a1-why') + '\n';
+  out += '2. Problems identified:\n';
+  out += '   ' + boxVal('a2-c1') + ' — weak paraphrase\n';
+  out += '   ' + boxVal('a2-c2') + ' — weak/informal opinion\n';
+  out += '   ' + boxVal('a2-c3') + ' — reasons explained too early\n';
+  out += '   ' + boxVal('a2-c4') + ' — "no problem" (distractor option)\n';
+  out += '   Rewrite: ' + val('a2-fix') + '\n';
+  out += '3. Full introduction (public libraries prompt):\n   ' + val('a3') + '\n\n';
+
+  out += '--- APPLICATION: Full Task (single-use plastic bags) ---\n';
+  out += 'Position chosen: ' + radioVal('app-pos') + '\n';
+  out += 'Full introduction:\n' + val('app1') + '\n\n';
+  out += 'Self-check:\n';
+  out += '  ' + checkVal(0) + ' — Sentence 1 paraphrases, no 3+ word copy\n';
+  out += '  ' + checkVal(1) + ' — Sentence 2 has a clear opinion phrase\n';
+  out += '  ' + checkVal(2) + ' — stays about MY opinion throughout\n';
+  out += '  ' + checkVal(3) + ' — about 2 sentences, not a full paragraph\n';
+
+  return out;
+}
+
+let currentSubmission = '';
+
+function prepareSubmission() {
+  const statusEl = document.getElementById('statusMsg');
+  currentSubmission = buildSubmissionText();
+  document.getElementById('previewText').textContent = currentSubmission;
+  document.getElementById('previewBox').classList.add('show');
+  statusEl.textContent = '✓ Submission ready below. Choose how to send it.';
+  statusEl.className = 'status-msg show status-ok';
+  document.getElementById('emailBtn').disabled = false;
+  document.getElementById('copyBtn').disabled = false;
+  document.getElementById('downloadBtn').disabled = false;
+}
+
+function sendByEmail() {
+  const subject = encodeURIComponent('Week 27 Day 1 Agree-Disagree Practice');
+  const body = encodeURIComponent(currentSubmission);
+  window.location.href = 'mailto:kien.nguyen2411@outlook.com?subject=' + subject + '&body=' + body;
+}
+
+function copyToClipboard() {
+  navigator.clipboard.writeText(currentSubmission).then(() => {
+    const statusEl = document.getElementById('statusMsg');
+    statusEl.textContent = '✓ Copied to clipboard! You can now paste it into an email or message.';
+    statusEl.className = 'status-msg show status-ok';
+  }).catch(() => {
+    const statusEl = document.getElementById('statusMsg');
+    statusEl.textContent = '⚠ Could not copy automatically — please select the text in the box above and copy it manually.';
+    statusEl.className = 'status-msg show status-warn';
+  });
+}
+
+function downloadAsFile() {
+  const blob = new Blob([currentSubmission], { type: 'text/plain' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'Week27_Day1_AgreeDisagree_Practice.txt';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+</script>
+
+</body>
+</html>
